@@ -1,0 +1,195 @@
+/* ==========================================================================
+   Tokens + shared primitives.
+   Breakpoints used everywhere (mobile-last, but written desktop-first):
+     laptop/desktop  >= 1200px  (primary: base rules)
+     tablet          768px - 1199px
+     mobile          <= 767px
+   ========================================================================== */
+:root {
+  --navy: #22376a;
+  --navy-deep: #091940;
+  --text: #444444;
+  --muted: #777777;
+  --label: #7d7d7d;
+  --placeholder: #9D9D9D;
+  --disabled: #d4d4d4;
+  --border: #d4d4d4;
+  --border-soft: #dfdfec;
+  --page: #fafbfe;
+  --thead: #c7d8ec;
+  --row-active: #e8eff8;
+  --row-error: #f7e8e8;
+  --blue: #0960cb;
+  --red: #ff3e3e;
+  --red-soft: #e38282;
+  --green: #057111;
+  --flag: #eac4c4;
+  --overlay: rgba(0, 0, 0, 0.43);
+  --font: Arial, Helvetica, "Liberation Sans", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--text);
+  background: var(--page);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* links that are buttons */
+.link,
+.link-bold,
+.link-underline {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--blue);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.link-bold {
+  font-weight: 700;
+}
+
+.link-underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* buttons */
+.btn-primary,
+.btn-outline,
+.btn-ghost {
+  height: 40px;
+  padding: 0 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.btn-primary {
+  background: var(--navy);
+  border: 1px solid var(--navy);
+  color: #fff;
+}
+
+.btn-primary:disabled {
+  background: #bdbdbd;
+  border-color: #bdbdbd;
+}
+
+.btn-outline {
+  background: #fff;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+}
+
+.btn-outline:disabled {
+  border-color: var(--disabled);
+  color: #bdbdbd;
+}
+
+.btn-ghost {
+  background: #fff;
+  border: 1px solid var(--disabled);
+  color: #bdbdbd;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-primary--lg,
+.btn-outline--lg {
+  font-size: 16px;
+}
+
+/* shared labelled text field */
+.field {
+  display: block;
+  text-align: left;
+}
+
+.field>span {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.field input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: #fff;
+  padding: 0 16px;
+  font-size: 14px;
+  outline-offset: 0;
+}
+
+.field input::placeholder {
+  color: var(--placeholder);
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 14px;
+  padding: 12px 0;
+}
+
+i {
+  font-style: normal;
+}

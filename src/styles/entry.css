@@ -1,0 +1,259 @@
+/* Login + patient search screens */
+.entry {
+  min-height: 100vh;
+}
+
+.entry--login {
+  background: linear-gradient(90deg, #f3f7ff 0%, #dbe6ff 100%);
+}
+
+.login-stage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 170px 20px 40px;
+}
+
+.login-card {
+  width: 398px;
+  max-width: 100%;
+  padding: 28px;
+  background: #E6F0FF;
+  border: 1px solid #dfdfec;
+  border-radius: 4px;
+  box-shadow: 6px 11px 54px 4px #C1C9D9;
+}
+
+.login-card h1 {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.login-card>p {
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--muted);
+  margin: 16px 0 40px;
+}
+
+.cred-form .field+.field {
+  margin-top: 24px;
+}
+
+.cred-form .link-underline {
+  display: block;
+  margin: 12px 0 0 auto;
+  line-height: 18px;
+}
+
+.cred-form__hint {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--red);
+  line-height: 16px;
+  text-align: center;
+}
+
+.btn-login {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin-top: 40px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 16px;
+}
+
+.btn-login:disabled {
+  background: #bdbdbd;
+}
+
+.entry--search {
+  background: #fbfcff;
+}
+
+.search-stage {
+  padding: 60px 20px;
+}
+
+.search-intro {
+  text-align: center;
+}
+
+.search-intro h1 {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.search-intro p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 20px;
+  line-height: 18px;
+}
+
+.search-body {
+  width: 800px;
+  max-width: 100%;
+  margin: 80px auto 0;
+}
+
+.search-label {
+  display: block;
+  font-size: 14px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.search-field {
+  position: relative;
+  height: 40px;
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  color: var(--navy);
+}
+
+.search-field input {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  border-radius: 8px;
+  padding: 0 52px 0 19px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  outline-offset: 2px;
+}
+
+.search-field input::placeholder {
+  color: var(--placeholder);
+  font-weight: 400;
+}
+
+.search-field svg {
+  position: absolute;
+  right: 22px;
+  top: 10px;
+}
+
+.search-recent {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 40px 0 0;
+  line-height: 18px;
+}
+
+.patient-list {
+  margin-top: 28px;
+}
+
+.search-recent+.patient-list {
+  margin-top: 18px;
+}
+
+.patient-row {
+  padding: 14px 0 22px;
+}
+
+.patient-row__title {
+  font-size: 14px;
+  line-height: 18px;
+  color: #2973fa;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.patient-row__title button {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-size: 14px;
+}
+
+.patient-row__title button:hover {
+  text-decoration: underline;
+}
+
+.patient-row__title i {
+  color: #2973fa;
+}
+
+.patient-row__grid {
+  display: grid;
+  grid-template-columns: 111px 318px 1fr auto;
+  column-gap: 0;
+  align-items: end;
+  margin-top: 20px;
+}
+
+.patient-row__grid small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.patient-row__grid span {
+  display: block;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.patient-row__grid .btn-outline {
+  width: 108px;
+  height: 36px;
+}
+
+.patient-list--recent .patient-row {
+  border-bottom: 1px solid var(--border);
+}
+
+.search-empty {
+  margin-top: 40px;
+  color: var(--muted);
+}
+
+@media (max-width: 767px) {
+  .login-stage {
+    padding-top: 56px;
+  }
+
+  .search-stage {
+    padding-top: 32px;
+  }
+
+  .search-body {
+    margin-top: 40px;
+  }
+
+  .patient-row__grid {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 14px;
+    column-gap: 16px;
+  }
+
+  .patient-row__grid>div:nth-child(2),
+  .patient-row__grid>div:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  .patient-row__grid .btn-outline {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin: 0;
+  }
+
+  .patient-row__title {
+    flex-wrap: wrap;
+  }
+}

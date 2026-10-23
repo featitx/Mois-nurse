@@ -1,0 +1,225 @@
+/* Cycle/day discharge summary page */
+.ds {
+  padding-bottom: 8px;
+}
+
+.ds__title {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  margin: 24px 0 22px;
+}
+
+.ds-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px 24px;
+  margin-bottom: 28px;
+}
+
+.ds-card:has(.ds-next) {
+  padding-bottom: 22px;
+}
+
+.ds-card h3 {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ds-pill {
+  background: #e8eef9;
+  border: 1px solid #d3dcef;
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 400;
+  padding: 2px 11px;
+  border-radius: 4px;
+  line-height: 18px;
+}
+
+.ds-table-wrap {
+  overflow-x: auto;
+  margin: -2px 0 -1px;
+}
+
+.ds-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  table-layout: fixed;
+}
+
+.ds-table th {
+  height: 30px;
+  background: var(--thead);
+  color: var(--navy);
+  font-size: 12px;
+  text-align: left;
+  padding: 0 16px;
+  border-left: 1px solid #b1b1b1;
+}
+
+.ds-table th:first-child {
+  border-left: 0;
+}
+
+.ds-table td {
+  height: 42px;
+  padding: 0 16px;
+  font-size: 14px;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+
+.ds-table td:first-child {
+  border-left: 0;
+}
+
+.ds-table tbody tr:first-child td {
+  border-top: 0;
+}
+
+.ds-table td.is-alert {
+  background: #f6e6e6;
+  color: var(--red);
+}
+
+.ds-table td small {
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
+  font-size: 14px;
+  display: none;
+}
+
+.ds-table td.is-alert span {
+  font-size: 14px;
+}
+
+.ds-table .w-sr {
+  width: 6.3%;
+}
+
+.ds-table--chemo th:nth-child(2) {
+  width: 27.1%;
+}
+
+.ds-table--chemo th:nth-child(3) {
+  width: 11.4%;
+}
+
+.ds-table--chemo th:nth-child(4) {
+  width: 14.4%;
+}
+
+.ds-table--chemo th:nth-child(5) {
+  width: 20.3%;
+}
+
+.ds-table--post th:nth-child(2) {
+  width: 27.1%;
+}
+
+.ds-table--post th:nth-child(3) {
+  width: 9.8%;
+}
+
+.ds-table--post th:nth-child(4) {
+  width: 12.7%;
+}
+
+.ds-table--post th:nth-child(5) {
+  width: 14.3%;
+}
+
+.ds-table--post th:nth-child(6) {
+  width: 10.5%;
+}
+
+.ds-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 25px;
+  font-size: 16px;
+  line-height: 22px;
+  margin-top: 26px;
+}
+
+.ds-cap {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 18px 0 4px;
+}
+
+.ds-text {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.ds-strong {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+  margin-top: 24px;
+}
+
+.ds-card h3+.ds-list {
+  margin-top: 0;
+}
+
+.ds-next {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.ds-next .ds-cap {
+  margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  .ds-card {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .ds__title {
+    font-size: 18px;
+    margin: 20px 0 16px;
+  }
+}
+
+@media print {
+
+  .topbar,
+  .phdr-scroll,
+  .cycle-strip,
+  .day-strip,
+  .admin-footer,
+  .drawer-overlay,
+  .overlay {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .admin {
+    padding: 0;
+  }
+
+  .ds-card {
+    break-inside: avoid;
+  }
+}

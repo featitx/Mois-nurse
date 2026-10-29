@@ -36,7 +36,7 @@ export default function Modals({ modal, patient, onClose, onLogin, onLogout, ui 
       <Shell className="modal--login" onClose={onClose} label="Log in to continue">
         <Badge><Lock width="32" height="32" /></Badge>
         <h2>Log in to continue</h2>
-        <p className="modal__sub">Please enter your credentials to make changes to this patient&rsquo;s records</p>
+        <p className="modal__sub">Enter your credentials to make changes to this patient's records</p>
         <CredentialsForm onSubmit={onLogin} autoFocus />
       </Shell>
     );

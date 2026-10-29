@@ -32,6 +32,10 @@
   gap: 12px;
 }
 
+.monitor-symt{
+  margin-bottom: 36px;
+}
+
 .ds-pill {
   background: #e8eef9;
   border: 1px solid #d3dcef;
@@ -107,6 +111,7 @@
 
 .ds-table .w-sr {
   width: 6.3%;
+  white-space: nowrap;
 }
 
 .ds-table--chemo th:nth-child(2) {

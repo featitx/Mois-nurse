@@ -57,7 +57,6 @@
 .topbar__right {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 3.2vw, 38px);
   min-width: 0;
 }
 
@@ -199,9 +198,13 @@
   background: #fff;
   color: var(--text);
   border-radius: 6px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
-  padding: 13px 24px 7px 19px;
+  /* box-shadow: 0 6px 20px rgba(0, 0, 0, .25); */
+  /* padding: 13px 24px 7px 19px; */
+    padding: 16px 20px;
   z-index: 40;
+  border: 1px solid #D4D4D4;
+  box-shadow: 4px 8px 20px 0px #00000040;
+
 }
 
 .menu--plain {
@@ -213,21 +216,21 @@
 .menu__who {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding-bottom: 13px;
+  gap: 9px;
+  padding-bottom: 16px;
 }
 
 .menu__who strong {
   display: block;
   font-size: 16px;
   white-space: nowrap;
+  line-height: 20px;
 }
 
 .menu__who small {
   display: block;
   font-size: 11px;
   color: var(--muted);
-  margin-top: 3px;
 }
 
 .menu__avatar {
@@ -257,13 +260,17 @@
 .menu button {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   width: 100%;
   background: none;
   border: 0;
-  padding: 7.5px 0;
+  padding: 6px 0;
   font-size: 14px;
   text-align: left;
+}
+
+.menu button:last-child {
+  padding-bottom: 0; 
 }
 
 .menu button:hover {
@@ -317,6 +324,71 @@
   .menu {
     right: 0;
   }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .topbar{
+    height: 36px;
+    padding: 0 12px;
+  }
+
+  .topbar__title{
+font-weight: 400;
+font-size: 12px;
+  }
+
+  .topbar__logo{
+    width: 16px;
+    height: 16px;
+  }
+
+  .topbar__brand{
+    gap: 8px;
+  }
+
+  .topbar__back{
+    height: auto;
+    width: auto;
+  }
+
+  .topbar__back svg{
+    height: 16px;
+    width: 16px;
+  }
+
+  .topbar__search{
+    height: 20px;
+  }
+
+  .topbar__search{
+    max-width: 195px;
+    padding-left: 8px;
+    gap: 4px;
+
+  }
+
+    .topbar__avatar{
+    width: 16px;
+    height: 16px;
+  }
+  .topbar__avatar svg{
+    width: 16px;
+    height: 16px;
+  }
+
+  .topbar__search input::placeholder{
+font-size: 10px;
+  }
+
+  .topbar__account{
+    gap: 4px;
+  }
+
+  .topbar__chev{
+    width: 21px;
+    height: 21px;
+  }
+
 }
 
 @media (max-width: 480px) {

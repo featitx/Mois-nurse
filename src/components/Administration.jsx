@@ -51,41 +51,49 @@ function DrugRow({ drug, rec, eff, state, errors, onActivate, onPatch, onSave, o
       </td>
       <td className="c-dose"><b>{drug.dose}</b></td>
 
+            {/* START TIME */}
       <td className="c-time">
-        {saved || state === "locked" ? (
-          <span>{eff.start ? fmt12(eff.start) : "--"}</span>
-        ) : showPlaceholder ? (
-          <input className={`inp inp--time${miss("Start Time") ? " is-missing" : ""}`} disabled value={fmt12(drug.start)} aria-label="Start time (not yet recorded)" readOnly />
-        ) : (
-          <input type="time" className={`inp inp--time${miss("Start Time") ? " is-missing" : ""}`} value={eff.start} aria-label="Start time" onChange={(e) => onPatch(drug, { start: e.target.value, end: undefined })} />
-        )}
-        {miss("Start Time") && <em className="miss">Missing</em>}
+        <div className="time-cell-inner">
+          {saved || state === "locked" ? (
+            <span>{eff.start ? fmt12(eff.start) : "--"}</span>
+          ) : showPlaceholder ? (
+            <input className={`inp inp--time${miss("Start Time") ? " is-missing" : ""}`} disabled value={fmt12(drug.start)} aria-label="Start time (not yet recorded)" readOnly />
+          ) : (
+            <input type="time" className={`inp inp--time${miss("Start Time") ? " is-missing" : ""}`} value={eff.start} aria-label="Start time" onChange={(e) => onPatch(drug, { start: e.target.value, end: undefined })} />
+          )}
+          {miss("Start Time") && <em className="miss">Missing</em>}
+        </div>
       </td>
 
+      {/* END TIME */}
       <td className="c-time">
-        {saved || state === "locked" ? (
-          <span>{eff.end ? fmt12(eff.end) : "--"}</span>
-        ) : showPlaceholder ? (
-          <input className={`inp inp--time${miss("End Time") ? " is-missing" : ""}`} disabled value={hasEnd ? fmt12(drug.start) : ""} placeholder="--" aria-label="End time (not yet recorded)" readOnly />
-        ) : (
-          <input type="time" className={`inp inp--time${miss("End Time") ? " is-missing" : ""}`} value={eff.end} disabled={!hasEnd} aria-label="End time" onChange={(e) => onPatch(drug, { end: e.target.value })} />
-        )}
-        {miss("End Time") && <em className="miss">Missing</em>}
+        <div className="time-cell-inner">
+          {saved || state === "locked" ? (
+            <span>{eff.end ? fmt12(eff.end) : "--"}</span>
+          ) : showPlaceholder ? (
+            <input className={`inp inp--time${miss("End Time") ? " is-missing" : ""}`} disabled value={hasEnd ? fmt12(drug.start) : ""} placeholder="--" aria-label="End time (not yet recorded)" readOnly />
+          ) : (
+            <input type="time" className={`inp inp--time${miss("End Time") ? " is-missing" : ""}`} value={eff.end} disabled={!hasEnd} aria-label="End time" onChange={(e) => onPatch(drug, { end: e.target.value })} />
+          )}
+          {miss("End Time") && <em className="miss">Missing</em>}
+        </div>
       </td>
 
-      <td className="c-site">
-        {saved || state === "locked" ? (
-          <span>{eff.route || "--"}</span>
-        ) : (
-          <div className={`select${miss("Site/Route") ? " is-missing" : ""}${active ? "" : " is-idle"}`}>
-            <select value={eff.route} disabled={!active} aria-label="Site or route" onChange={(e) => onPatch(drug, { route: e.target.value })}>
-              <option value="">Select</option>
-              {SITE_OPTIONS.map((o) => <option key={o}>{o}</option>)}
-            </select>
-            <ChevronDown width="18" height="18" />
-          </div>
-        )}
-        {miss("Site/Route") && <em className="miss">Missing</em>}
+           <td className="c-site">
+        <div className="cell-inner"> {/* ADD WRAPPER */}
+          {saved || state === "locked" ? (
+            <span>{eff.route || "--"}</span>
+          ) : (
+            <div className={`select${miss("Site/Route") ? " is-missing" : ""}${active ? "" : " is-idle"}`}>
+              <select value={eff.route} disabled={!active} aria-label="Site or route" onChange={(e) => onPatch(drug, { route: e.target.value })}>
+                <option value="">Select</option>
+                {SITE_OPTIONS.map((o) => <option key={o}>{o}</option>)}
+              </select>
+              <ChevronDown width="18" height="18" />
+            </div>
+          )}
+          {miss("Site/Route") && <em className="miss">Missing</em>}
+        </div>
       </td>
 
       <td className="c-status">
@@ -106,7 +114,6 @@ function DrugRow({ drug, rec, eff, state, errors, onActivate, onPatch, onSave, o
           >
             <CrossCircle width="14" height="14" /> Not Given
           </button>
-          {miss("Status") && <em className="miss">Missing</em>}
         </div>
       </td>
 

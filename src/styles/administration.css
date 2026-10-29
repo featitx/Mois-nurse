@@ -2,6 +2,8 @@
 .admin {
   padding: 20px;
   overflow-x: hidden;
+    padding-bottom: calc(70px + 38px); 
+
 }
 
 /* ---------- cycle strip ---------- */
@@ -94,8 +96,8 @@
 }
 
 .day-btn {
-  flex: 0 0 40px;
-  width: 40px;
+  flex: 0 0 44px;
+  width: 44px;
   border: 0;
   border-left: 1px solid var(--border);
   background: #fff;
@@ -116,6 +118,9 @@
 
 .day-btn:disabled {
   color: var(--placeholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .day-date {
@@ -164,7 +169,7 @@
   align-items: center;
   gap: 8px;
   height: 36px;
-  padding: 8px 12px;
+  padding: 12px 10px;
   background: #fff;
   border: 1px solid var(--border-soft);
   border-radius: 4px;
@@ -179,6 +184,7 @@
 .vitals-bar .is-flag {
   background: var(--flag);
   padding: 2px;
+  border-radius: 1px;
 }
 
 .vitals-bar__sep {
@@ -216,6 +222,8 @@
   border-spacing: 0;
   table-layout: fixed;
 }
+
+
 
 .w-drug {
   width: 20.45%;
@@ -261,6 +269,23 @@
   position: sticky;
   top: 0px;
   z-index: 3;
+
+  padding-left: 16px !important;
+    letter-spacing: 2%;
+}
+
+.drug-table .c-drug b{
+  /* line-height: 10px; */
+  
+}
+
+.drug-table .c-drug small{
+font-weight: 400;
+font-size: 12px;
+margin-top: 16px;
+line-height: 140%;
+letter-spacing: 0%;
+
 }
 
 .drug-table th:first-child {
@@ -280,6 +305,7 @@
   vertical-align: middle;
   font-size: 14px;
   position: relative;
+  padding-bottom: 16px;
 }
 
 .drug-table td:first-child {
@@ -292,14 +318,14 @@
 
 .c-drug {
   vertical-align: top !important;
-  padding-top: 11px !important;
-  padding-left: 15px !important;
+  padding-top: 16px !important;
+  padding-left: 16px !important;
 }
 
 .c-drug b {
   display: block;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 120%;
   text-transform: uppercase;
 }
 
@@ -331,6 +357,11 @@
   background: var(--row-error);
 }
 
+.drug-row.has-error .chip{
+  background: #ffffff;
+  border: #D4D4D4;
+}
+
 /* inputs inside rows */
 .inp {
   width: 100%;
@@ -348,11 +379,11 @@
 }
 
 .inp:disabled {
-  background: #fefefe;
-  border-color: #d9d9d9;
-  color: #b8b8b8;
+  background: #FFFFFF;
+  border-color: #D4D4D4;
+  color: #B1B1B1;
   pointer-events: none;
-  -webkit-text-fill-color: #b8b8b8;
+  opacity: none;
 }
 
 .inp--time {
@@ -399,7 +430,52 @@
 .drug-row.has-error td.c-time,
 .drug-row.has-error td.c-site {
   padding-top: 0;
+  
 }
+
+.drug-row.has-error td.c-time {
+
+}
+
+.drug-row.has-error .c-time {
+  /* border-color: green; */
+  
+}
+
+/* .drug-row.has-error .time-cell-inner,
+.drug-row.has-error .cell-inner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  height: 100%;
+} */
+
+/* 1. Base style for BOTH wrappers (Centered by default) */
+.cell-inner,
+.time-cell-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /* gap: 4px; */
+}
+
+.cell-inner:has(.miss),
+.time-cell-inner:has(.miss) {
+  justify-content: flex-end;
+}
+
+.cell-inner .select {
+  /* width: 100%; */
+}
+
+.time-cell-inner .inp.inp--time {
+  height: 40px;
+}
+
+
 
 .select {
   position: relative;
@@ -428,9 +504,9 @@
 }
 
 .select.is-idle select {
-  border-color: #d9d9d9;
+  border-color: #D4D4D4;
   background: #fefefe;
-  color: #b8b8b8;
+  color: #B1B1B1;
   pointer-events: none;
 }
 
@@ -470,7 +546,7 @@
 }
 
 .btn-status--not {
-  border: 1px solid #ff5656;
+  border: 1px solid #FF3E3E;
   color: #ff3e3e;
 }
 
@@ -525,7 +601,7 @@
 
 .tol__radios {
   display: flex;
-  gap: 13px;
+  gap: 10px;
   height: 20px;
   align-items: center;
   font-size: 12px;
@@ -537,26 +613,32 @@
   gap: 6px;
 }
 
+/* .tol__radios input{
+  width: 16px !important;
+  height: 16px !important;
+} */
+
 .tol input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border: 1.5px solid #444;
-  border-radius: 50%;
+  /* appearance: none;
+  -webkit-appearance: none; */
+  width: 17px;
+  height: 17px;
+  /* border: 1.5px solid #444; */
+  /* border-radius: 50%; */
   margin: 0;
   display: inline-grid;
   place-content: center;
   background: #fff;
+    accent-color: #444444;
 }
 
-.tol input[type="radio"]:checked::before {
+/* .tol input[type="radio"]:checked::before {
   content: "";
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #444;
-}
+} */
 
 .tol input[type="radio"]:disabled {
   border-color: #444;
@@ -570,7 +652,7 @@
 .tol__grades {
   display: flex;
   gap: 8px;
-  margin-top: 11px;
+  margin-top: 10px;
 }
 
 .chip {
@@ -579,7 +661,7 @@
   padding: 0 6px;
   border: none; 
   border-radius: 999px;
-  background: #fff;
+  background: #F6F6F6;
   color: var(--navy);
   font-size: 12px;
   line-height: 1;
@@ -589,6 +671,7 @@
   border-color: #d4d4d4;
   color: #d5d5d5;
   background: #fff;
+  border: 1px solid;
 }
 
 .is-saved .chip:disabled,
@@ -614,20 +697,34 @@
 }
 
 .inp--desc {
-  margin-top: 11px;
+  margin-top: 12px;
   font-size: 12px;
+
+letter-spacing: 3%;
+
 }
 
 .tol__text {
-  margin-top: 11px;
+  margin-top: 16px;
   font-size: 14px;
   line-height: 20px;
   color: var(--text);
 }
 
+.drug-table .tol__text{
+  line-height: 120%;
+  letter-spacing: 3%;
+}
+
+.drug-table .row-actions__saved{
+font-weight: 700;
+font-size: 14px;
+line-height: 100%;
+letter-spacing: 0%;
+}
 .drug-row:not(.is-active):not(.is-saved):not(.is-locked) .inp--desc,
 .drug-row:not(.is-active):not(.is-saved) .inp--desc {
-  border-color: #e9e9e9;
+  border-color: #D4D4D4;
 }
 
 .drug-row.is-active .inp--desc {
@@ -877,7 +974,6 @@
   .drug-table th {
     height: 28px;
     padding: 0 4px;
-    font-size: clamp(10px, 820px, 12px);
     line-height: 1.2;
     white-space: normal;
     vertical-align: middle;
@@ -886,7 +982,6 @@
   .drug-table td {
     height: 125px;
     padding: 16px;
-    font-size: clamp(12px, 820px, 14px);
     line-height: 1.4;
     vertical-align: middle;
   }
@@ -898,34 +993,29 @@
   }
 
   .drug-table .c-drug b {
-    font-size: clamp(12px, 820px , 14px);
     line-height: 1.4;
   }
 
   .drug-table .c-drug small {
-    font-size: clamp(10px, 820px, 12px);
     line-height: 1.4;
     margin-top: 5px;
     overflow-wrap: anywhere;
   }
 
   .drug-table .c-dose b {
-    font-size: clamp(12px, 820px, 14px);
   }
 
   /* Time inputs */
 
   .drug-table .inp {
     height: 32px;
-    padding: 0 3px;
-    font-size: clamp(12px, 820px , 14px);
+    padding: 0 8px;
   }
 
   .drug-table .inp--time {
     width: 100%;
     max-width: 100%;
-    padding: 10px;
-    font-size: clamp(9px, 0.9vw, 12px);
+    padding: 10px 5px;
   }
 
   /* Site / Route */
@@ -936,9 +1026,8 @@
   }
 
   .drug-table .select select {
-    height: 32px;
-    padding: 0 17px 0 4px;
-    font-size: clamp(9px, 0.9vw, 12px);
+    height: 40px;
+    padding: 0 17px 0 12px;
   }
 
   .drug-table .select svg {
@@ -957,17 +1046,16 @@
 
   .drug-table .btn-status {
     width: 100%;
-    height: 32px;
-    padding: 0 3px;
+    /* height: 32px; */
+    padding: 0 12px;
     gap: 3px;
-    justify-content: center;
-    font-size: clamp(8px, 820px, 10px);
+    justify-content: flex-start;
     white-space: nowrap;
   }
 
   .drug-table .btn-status svg {
-    width: 11px;
-    height: 11px;
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
   }
 
@@ -979,24 +1067,24 @@
 
   .drug-table .tol__radios {
     gap: 5px;
-    font-size: clamp(10px, 820px, 12px);
+
   }
 
   .drug-table .tol__radios label {
-    gap: 3px;
+    gap: 4px;
     white-space: nowrap;
   }
 
   .drug-table .tol input[type="radio"] {
-    width: 12px;
-    height: 12px;
+    width: 11px;
+    height: 11px;
     flex-shrink: 0;
   }
 
-  .drug-table .tol input[type="radio"]:checked::before {
+  /* .drug-table .tol input[type="radio"]:checked::before {
     width: 6px;
     height: 6px;
-  }
+  } */
 
   .drug-table .tol__grades {
     display: flex;
@@ -1011,10 +1099,12 @@
     height: 19px;
     padding: 0 3px;
     font-size: 10px;
+    max-width: 31px;
+    max-height: 21px;
   }
 
   .drug-table .inp--desc {
-    margin-top: 7px;
+    margin-top: 12px;
     font-size: 10px;
   }
 
@@ -1032,13 +1122,16 @@
 
   .drug-table .row-actions .link-bold,
   .drug-table .row-actions__saved {
-    font-size: clamp(9px, 0.85vw, 11px);
     line-height: 1.3;
   }
 
   .drug-table .miss {
-    font-size: 10px;
     max-width: 100%;
+
+font-size: 14px;
+line-height: 18px;
+letter-spacing: 3%;
+
   }
 }
 
@@ -1062,4 +1155,104 @@
   .drug-table th {
     position: static;
   }
+}
+
+
+@media (min-width: 768px) and (max-width: 1199px) {
+   .drug-table th{
+    padding-left: 7px !important;
+   }
+
+   .drug-table .c-drug{
+    padding: 12px 8px !important;
+   }
+
+   .drug-table .c-drug{
+font-size: 12px;
+line-height: 120%;
+
+   }
+
+   .drug-table .c-dose b{
+   
+font-size: 12px;
+line-height: 120%;
+   }
+
+   .drug-table td{
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: Arial;
+font-size: 12px;
+line-height: 18px;
+letter-spacing: 3%;
+   }
+
+   .drug-table .c-drug b{
+font-weight: 700;
+font-size: 12px;
+line-height: 120%;
+letter-spacing: 0px;
+
+   }
+.drug-table .c-drug small{
+  margin-top: 12px !important;
+}
+
+.drug-table .btn-status{
+  padding: 0 8px;
+font-size: 12px;
+line-height: 10px;
+
+}
+
+.admin{
+      padding: 16px 12px 70px;
+
+      /* these are temporary for testing  */
+      padding-left: 6px;
+      padding-right: 6px;
+}
+
+.drug-table-wrap{
+  /* margin-left: -6px;
+  margin-right: -6px; */
+}
+
+.is-saved .chip:disabled, .is-locked .chip:disabled{
+  font-size: 12px;
+}
+
+.drug-table .row-actions .link-bold, .drug-table .row-actions__saved{
+  font-size: 14px;
+}
+
+.drug-table .btn-status svg {
+    width: 12px;
+    height: 12px;
+  }
+
+
+
+.drug-table col:nth-child(6) {
+  min-width: 100px;
+  width: 100px; /* Optional: use width if you want it exactly 100px, not just minimum */
+}
+
+.drug-table th:last-child,
+.drug-table td:last-child {
+  min-width: 60px;
+  width: 60px;
+  /* Optional: center the buttons */
+  vertical-align: middle; 
+}
+
+.drug-table .c-tol{
+  padding: 8px 12px;
+}
+
+.c-tol{
+    padding: 12px 9px !important;
+}
+
 }

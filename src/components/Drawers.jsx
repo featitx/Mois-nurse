@@ -277,8 +277,9 @@ function ConditionTable({ kind, rows, setRows, nurse, ui }) {
   const isAllergy = kind === "allergies";
   const blank = isAllergy
     ? { type: ALLERGY_TYPES[0], allergen: "", reaction: "", severity: "Mild", remark: "" }
-    : { condition: "", status: "Under treatment", remark: "" };
-  const [editing, setEditing] = useState(null); // null | "new" | id
+    : { condition: "", severity: "Mild", remark: "" }; // Changed for comorbidities to have severity
+  
+  const [editing, setEditing] = useState(null); 
   const [draft, setDraft] = useState(blank);
   const [err, setErr] = useState("");
   const required = isAllergy ? "allergen" : "condition";
@@ -286,66 +287,113 @@ function ConditionTable({ kind, rows, setRows, nurse, ui }) {
   const guard = (fn) => () => (nurse ? fn() : ui.requireLogin());
   const open = (row) => { setEditing(row ? row.id : "new"); setDraft(row ? { ...row } : blank); setErr(""); };
   const stamp = { by: nurse ? `Nurse ${nurse.name}` : "", on: fmtDate(new Date()) };
+  
   const submit = () => {
     if (!draft[required].trim()) return setErr(`${isAllergy ? "Allergen" : "Condition"} is required.`);
     if (editing === "new") setRows((r) => [...r, { ...draft, id: `x-${Date.now()}`, ...stamp }]);
     else setRows((r) => r.map((x) => (x.id === editing ? { ...x, ...draft, ...stamp } : x)));
     setEditing(null);
   };
+  
   const del = (row) =>
     ui.openModal("confirm", {
       title: "Delete entry?",
       text: `Remove ${isAllergy ? row.allergen : row.condition} from this patient's record?`,
       onYes: () => setRows((r) => r.filter((x) => x.id !== row.id)),
     });
+    
   const d = (k) => ({ value: draft[k] || "", onChange: (e) => { setDraft((x) => ({ ...x, [k]: e.target.value })); setErr(""); } });
 
   return (
     <div className="cond">
-      <div className="cond__top">
-        {editing ? (
-          <form className="cond-form" onSubmit={(e) => { e.preventDefault(); submit(); }}>
-            {isAllergy ? (
-              <>
-                <label>Allergy Type<select {...d("type")}>{ALLERGY_TYPES.map((t) => <option key={t}>{t}</option>)}</select></label>
-                <label>Allergen<input {...d("allergen")} /></label>
-                <label>Reaction<input {...d("reaction")} /></label>
-                <label>Severity<select {...d("severity")}>{SEVERITY.map((t) => <option key={t}>{t}</option>)}</select></label>
-              </>
-            ) : (
-              <>
-                <label>Condition<input {...d("condition")} /></label>
-                <label>Status<input {...d("status")} /></label>
-              </>
-            )}
-            <label className="cond-form__wide">Remark<input {...d("remark")} /></label>
-            <div className="cond-form__actions">
-              <button type="button" className="btn-outline" onClick={() => setEditing(null)}>Cancel</button>
-              <button type="submit" className="btn-primary">Save</button>
+      {/* --- FORM SECTION (ONLY FOR COMORBIDITIES) --- */}
+      {!isAllergy && (
+        <div className="cond__top">
+          {editing ? (
+            <div className="cond-form-wrapper">
+              <h3 className="cond-form-heading">
+                {editing === "new" ? "Add New Comorbidity" : "Edit Comorbidity"}
+              </h3>
+              <form className="cond-form" onSubmit={(e) => { e.preventDefault(); submit(); }}>
+                <div className="cond-form-grid">
+                  <label className="cond-field">
+                    <span>Add Comorbidity</span>
+                    <select required {...d("condition")}>
+                      <option value="">Select comorbidity</option>
+                      <option value="Asthma">Asthma</option>
+                      <option value="Epilepsy">Epilepsy</option>
+                      <option value="Type 2 Diabetes">Type 2 Diabetes</option>
+                    </select>
+                  </label>
+                  <div className="cond-field">
+                    <span>Severity</span>
+                    <div className="severity-chips">
+                      {SEVERITY.map((s) => (
+                        <button key={s} type="button" className={`btn-sev ${draft.severity === s ? "is-active" : ""}`} onClick={() => setDraft((x) => ({ ...x, severity: s }))}>{s}</button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <label className="cond-field">
+                  <span>Remark (Optional)</span>
+                  <input {...d("remark")} placeholder="Enter additional details" />
+                </label>
+                <div className="cond-form-actions">
+                  <button type="button" className="btn-outline" onClick={() => setEditing(null)}>Discard</button>
+                  <button type="submit" className="btn-primary" disabled={!draft[required]?.trim()}>Save</button>
+                </div>
+                {err && <p className="form-err" role="alert">{err}</p>}
+              </form>
             </div>
-            {err && <p className="form-err" role="alert">{err}</p>}
-          </form>
-        ) : (
-          <button type="button" className="btn-outline cond__add" onClick={guard(() => open(null))}><Plus width="12" height="12" /> Add {isAllergy ? "Allergy" : "Comorbidity"}</button>
-        )}
-      </div>
+          ) : (
+            <div className="cond-add-wrapper">
+              <button type="button" className="btn-outline cond__add" onClick={guard(() => open(null))}>
+                <Plus width="12" height="12" /> Add Comorbidity
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* --- TABLE SECTION --- */}
       <div className="cond__scroll">
+        <h3 className="cond__title">Previously Recorded {isAllergy ? "Allergies" : "Comorbidities"}</h3>
         <table className={`cond-table ${isAllergy ? "cond-table--allergy" : "cond-table--comorb"}`}>
           <thead>
             <tr>
-              {isAllergy ? <><th>Allergy Type</th><th>Allergen</th><th>Reaction</th><th>Severity</th></> : <><th>Condition</th><th>Status</th></>}
-              <th className="w-remark">Remark</th><th>Last Updated</th><th className="w-icon">Edit</th><th className="w-icon">Delete</th>
+              {isAllergy ? (
+                <><th>Allergy Type</th><th>Allergen</th><th>Reaction</th><th>Severity</th></>
+              ) : (
+                <><th>Comorbidity</th><th>Severity</th></>
+              )}
+              <th className="w-remark">Remark</th>
+              <th>Last Updated</th>
+              
+              {/* Only show Edit/Delete headers for Comorbidities */}
+              {!isAllergy && (
+                <><th className="w-icon">Edit</th><th className="w-icon">Delete</th></>
+              )}
             </tr>
           </thead>
           <tbody>
-            {rows.length === 0 && <tr><td colSpan={isAllergy ? 8 : 6} className="cond__empty">None recorded</td></tr>}
+            {rows.length === 0 && <tr><td colSpan={isAllergy ? 6 : 6} className="cond__empty">None recorded</td></tr>}
             {rows.map((r) => (
               <tr key={r.id}>
-                {isAllergy ? <><td>{r.type || "--"}</td><td>{r.allergen || "--"}</td><td>{r.reaction || "--"}</td><td>{r.severity || "--"}</td></> : <><td>{r.condition || "--"}</td><td>{r.status || "--"}</td></>}
+                {isAllergy ? (
+                  <><td>{r.type || "--"}</td><td>{r.allergen || "--"}</td><td>{r.reaction || "--"}</td><td>{r.severity || "--"}</td></>
+                ) : (
+                  <><td>{r.condition || "--"}</td><td>{r.severity || "--"}</td></>
+                )}
                 <td><Remark text={r.remark} /></td>
                 <td className="cond__upd">{r.by}<small>{r.on}</small></td>
-                <td className="cond__icon"><button type="button" aria-label={`Edit ${r.allergen || r.condition}`} onClick={guard(() => open(r))}><Pencil width="16" height="16" /></button></td>
-                <td className="cond__icon cond__icon--del"><button type="button" aria-label={`Delete ${r.allergen || r.condition}`} onClick={guard(() => del(r))}><Trash width="18" height="18" /></button></td>
+                
+                {/* Only show Edit/Delete cells for Comorbidities */}
+                {!isAllergy && (
+                  <>
+                    <td className="cond__icon"><button type="button" onClick={guard(() => open(r))}><Pencil width="16" height="16" /></button></td>
+                    <td className="cond__icon cond__icon--del"><button type="button" onClick={guard(() => del(r))}><Trash width="18" height="18" /></button></td>
+                  </>
+                )}
               </tr>
             ))}
           </tbody>
@@ -358,8 +406,13 @@ function ConditionTable({ kind, rows, setRows, nurse, ui }) {
 /* --------------------------------------------------------------------- switch */
 export default function Drawers({ kind, onClose, patient, nurse, cycle, day, notes, addNote, vitals, addVitals, allergies, setAllergies, comorbidities, setComorbidities, ui }) {
   if (!kind) return null;
-  const title = { notes: "Nurse’s Notes", clinical: "Clinical notes", vitals: "Vitals", allergies: "Allergies", comorbidities: "Comorbidities" }[kind];
-  return (
+const title = { 
+  notes: "Nurse’s Notes", 
+  clinical: "Clinical notes", 
+  vitals: "Vitals", 
+  allergies: "View Allergies",             // Match Screenshot 1
+  comorbidities: "View & Update Comorbidities" // Match Screenshot 2
+}[kind];  return (
     <Shell title={title} onClose={onClose} wide={kind === "allergies" || kind === "comorbidities"}>
       {kind === "notes" && <NurseNotes patient={patient} nurse={nurse} cycle={cycle} day={day} notes={notes} onAdd={addNote} ui={ui} />}
       {kind === "clinical" && <ClinicalNotes patient={patient} />}

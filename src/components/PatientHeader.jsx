@@ -26,7 +26,7 @@ export default function PatientHeader({ patient, allergies, comorbidities, onDra
         <div className="phdr__side">
         <div className="phdr__med">
           <div className="phdr__block">
-            <h3>Allergies {extra > 0 && <em className="phdr__badge">+{extra}</em>}</h3>
+            <h3> Allergies {extra > 0 && <em className="phdr__badge">+{extra}</em>}</h3>
             <p className="phdr__tags">{shownAllergies.length ? shownAllergies.map((a) => <span key={a.id}>{a.allergen}</span>) : <span className="none">None recorded</span>}</p>
             <button type="button" className="link" onClick={() => onDrawer("allergies")}>View all</button>
           </div>

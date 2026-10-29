@@ -47,7 +47,7 @@ export default function DischargeSummary({ patient, cycle, day, records }) {
       </div>
 
       <div className="ds-card">
-        <h3>Symptoms to Monitor</h3>
+        <h3 className="monitor-symt">Symptoms to Monitor</h3>
         <p className="ds-list">{info.symptoms.map((s, i) => <span key={s}>{i + 1}. {s}</span>)}</p>
         <small className="ds-cap">Other Symptoms</small>
         <p className="ds-text">{info.otherSymptoms}</p>

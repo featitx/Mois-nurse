@@ -414,24 +414,25 @@ letter-spacing: 0%;
 }
 
 .miss {
-  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   font-style: normal;
   color: var(--red);
   font-size: 14px;
+  line-height: 22px;
   text-align: center;
-  max-width: 77px;
-  margin-top: 12px;
+  margin: 0;
+  pointer-events: none;
 }
 
-.c-site .miss {
-  max-width: 158px;
-}
 
-.drug-row.has-error td.c-time,
+/* .drug-row.has-error td.c-time,
 .drug-row.has-error td.c-site {
   padding-top: 0;
   
-}
+} */
 
 .drug-row.has-error td.c-time {
 
@@ -454,18 +455,15 @@ letter-spacing: 0%;
 /* 1. Base style for BOTH wrappers (Centered by default) */
 .cell-inner,
 .time-cell-inner {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-  /* gap: 4px; */
+  box-sizing: border-box;
 }
 
-.cell-inner:has(.miss),
-.time-cell-inner:has(.miss) {
-  justify-content: flex-end;
-}
 
 .cell-inner .select {
   /* width: 100%; */
@@ -588,9 +586,6 @@ letter-spacing: 0%;
   margin-top: 0;
 }
 
-.drug-row.has-error .c-status .status-stack {
-  gap: 6px;
-}
 
 /* tolerance */
 .c-tol {
@@ -946,8 +941,7 @@ letter-spacing: 0%;
 
   .drug-table td {
     font-size: 14px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 16px;
   }
 }
 
@@ -1031,10 +1025,10 @@ letter-spacing: 0%;
   }
 
   .drug-table .select svg {
-    width: 12px;
-    height: 12px;
-    right: 3px;
-    top: 10px;
+    width: 14px;
+    height: 16px;
+    right: 12px;
+    top: 11px;
   }
 
   /* Given / Not Given */
@@ -1076,8 +1070,8 @@ letter-spacing: 0%;
   }
 
   .drug-table .tol input[type="radio"] {
-    width: 11px;
-    height: 11px;
+    width: 15px;
+    height: 15px;
     flex-shrink: 0;
   }
 
@@ -1094,9 +1088,9 @@ letter-spacing: 0%;
   }
 
   .drug-table .chip {
-    min-width: 24px;
+    /* min-width: 24px;
     max-width: 32px;
-    height: 19px;
+    height: 19px; */
     padding: 0 3px;
     font-size: 10px;
     max-width: 31px;
@@ -1116,7 +1110,7 @@ letter-spacing: 0%;
   /* Actions */
 
   .drug-table .row-actions {
-    gap: 8px;
+    gap: 16px;
     padding: 0;
   }
 

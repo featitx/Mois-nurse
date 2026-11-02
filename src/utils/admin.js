@@ -26,14 +26,22 @@ export function effective(drug, r = {}, autoStart = "") {
 export function validate(drug, eff) {
   const missing = [];
   if (!eff.status) missing.push("Status");
-  if (eff.status !== "not-given") {
+
+  // Only require times if it's not an Oral or Subcutaneous route
+  const isNoTimeRoute = eff.route === "Oral" || eff.route === "Subcutaneous";
+
+  if (eff.status !== "not-given" && !isNoTimeRoute) {
     if (!eff.start) missing.push("Start Time");
     if (needsEnd(drug) && !eff.end) missing.push("End Time");
-    if (!eff.route) missing.push("Site/Route");
   }
+
+  if (eff.status !== "not-given" && !eff.route) {
+    missing.push("Site/Route");
+  }
+
   if (eff.tolerance === "adr") {
     if (!eff.grade) missing.push("ADR Grade");
-    if (!eff.description.trim()) missing.push("ADR Description");
+    // if (!eff.description.trim()) missing.push("ADR Description");
   }
   return missing;
 }

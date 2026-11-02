@@ -38,6 +38,7 @@ function DrugRow({ drug, rec, eff, state, errors, onActivate, onPatch, onSave, o
   const status = eff.status;
   const hasEnd = needsEnd(drug);
   const showPlaceholder = !active && !rec?.start; // pending row: scheduled time shown greyed
+    const isNoTimeRoute = eff.route === "Oral" || eff.route === "Subcutaneous";
 
   return (
     <tr
@@ -61,22 +62,47 @@ function DrugRow({ drug, rec, eff, state, errors, onActivate, onPatch, onSave, o
           ) : (
             <input type="time" className={`inp inp--time${miss("Start Time") ? " is-missing" : ""}`} value={eff.start} aria-label="Start time" onChange={(e) => onPatch(drug, { start: e.target.value, end: undefined })} />
           )}
-          {miss("Start Time") && <em className="miss">Missing</em>}
+          {/* {miss("Start Time") && <em className="miss">Missing</em>} */}
         </div>
       </td>
 
-      {/* END TIME */}
+           {/* END TIME */}
       <td className="c-time">
         <div className="time-cell-inner">
           {saved || state === "locked" ? (
             <span>{eff.end ? fmt12(eff.end) : "--"}</span>
+          ) : eff.route === "Oral" ? (
+            // If route is Oral, show a disabled/empty input
+            <input
+              type="time"
+              className="inp inp--time"
+              disabled
+              value=""
+              aria-label="End time (not required for oral)"
+            />
           ) : showPlaceholder ? (
-            <input className={`inp inp--time${miss("End Time") ? " is-missing" : ""}`} disabled value={hasEnd ? fmt12(drug.start) : ""} placeholder="--" aria-label="End time (not yet recorded)" readOnly />
+            <input
+              className={`inp inp--time${miss("End Time") ? " is-missing" : ""}`}
+              disabled
+              value={hasEnd ? fmt12(drug.start) : ""}
+              placeholder="--"
+              aria-label="End time (not yet recorded)"
+              readOnly
+            />
           ) : (
-            <input type="time" className={`inp inp--time${miss("End Time") ? " is-missing" : ""}`} value={eff.end} disabled={!hasEnd} aria-label="End time" onChange={(e) => onPatch(drug, { end: e.target.value })} />
+            <input
+              type="time"
+              className={`inp inp--time${miss("End Time") ? " is-missing" : ""}`}
+              value={eff.end}
+              disabled={!hasEnd}
+              aria-label="End time"
+              onChange={(e) => onPatch(drug, { end: e.target.value })}
+            />
           )}
-          {miss("End Time") && <em className="miss">Missing</em>}
         </div>
+        {/* {miss("End Time") && eff.route !== "Oral" && (
+          <em className="miss">Missing</em>
+        )} */}
       </td>
 
            <td className="c-site">

@@ -63,6 +63,12 @@ export default function App() {
   );
   useEffect(() => () => clearTimeout(toastTimer.current), []);
 
+  useEffect(() => {
+    if (view === "patient" && patient) {
+      openModal("highlights", { cycle, day });
+    }
+  }, [view, patientId]);
+
   /* ------------------------------------------------------------- session */
   const login = (username) => {
     setNurse(resolveNurse(username));

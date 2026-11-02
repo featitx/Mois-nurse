@@ -208,6 +208,8 @@ function DayView({ patient, nurse, cycle, day, records, setRecords, completed, s
     clearErr(drug.id);
     writeRecord(drug, { ...eff, saved: true, nurse: nurse.name, savedAt: new Date().toISOString() });
   };
+
+  
   const clearRow = (drug) => {
     if (!nurse) return ui.requireLogin();
     clearErr(drug.id);

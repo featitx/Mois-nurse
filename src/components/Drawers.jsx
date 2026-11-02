@@ -172,7 +172,8 @@ export function ReadingRow({ v }) {
 
 function Vitals({ patient, nurse, cycle, day, vitals, onAdd, ui, onClose }) {
   const [form, setForm] = useState(EMPTY);
-  const canRecord = cycle === patient.currentCycle && !isFutureDay(patient, cycle, day);
+  // const canRecord = cycle === patient.currentCycle && !isFutureDay(patient, cycle, day);
+  const canRecord = cycle === patient.currentCycle && day === patient.currentDay;
   const filled = Object.values(form).some((v) => v.trim() !== "");
   const bpBad = form.bp.trim() !== "" && !parseBp(form.bp);
   const numBad = (k) => form[k].trim() !== "" && !/^\d+(\.\d)?$/.test(form[k].trim());

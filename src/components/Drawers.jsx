@@ -107,7 +107,7 @@ function NurseNotes({ patient, nurse, cycle, day, notes, onAdd, ui }) {
         {err && <p className="form-err" role="alert">{err}</p>}
         <div className="form-actions">
           <button type="button" className="btn-ghost" disabled={!text} onClick={() => { setText(""); setErr(""); }}>Discard</button>
-          <button type="button" className="btn-primary" onClick={save}>Save</button>
+          <button type="button" className="btn-primary" disabled={!text} onClick={save}>Save</button>
         </div>
       </section>
 
